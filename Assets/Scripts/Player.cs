@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
     public float speed;
 
     Rigidbody2D rigid;
+    SpriteRenderer spriter;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriter = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -26,5 +28,14 @@ public class Player : MonoBehaviour
 
         // 위치 이동
         rigid.MovePosition(rigid.position + nextVec);
+    }
+
+    void LateUpdate()
+    {
+        if(inputVec.x != 0)
+        {
+            spriter.flipX = inputVec.x < 0;
+
+        }
     }
 }
