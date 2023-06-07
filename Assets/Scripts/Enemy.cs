@@ -39,4 +39,11 @@ public class Enemy : MonoBehaviour
         spriter.flipX = target.position.x < rigid.position.x;
         
     }
+
+    // 스크립트가 활성화 될 때 호출되는 이벤트함수
+    void OnEnable()
+    {
+        // GameManger의 요소인 player를 가져오는데 target의 형태인 Rigidbody2D를 적용시켜야한다.
+        target = GameManager.instance.player.GetComponent<Rigidbody2D>();    
+    }
 }
