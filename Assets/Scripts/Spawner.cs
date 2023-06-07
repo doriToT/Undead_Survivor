@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
             Spawn();
         }
     }
-
+    
     void Spawn()
     {
         GameObject enemy = GameManager.instance.pool.Get(Random.Range(0, 2));
