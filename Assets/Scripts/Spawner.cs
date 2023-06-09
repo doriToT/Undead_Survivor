@@ -38,6 +38,7 @@ public class Spawner : MonoBehaviour
 
 // 직렬화
 [System.Serializable]
+// 몬스터 스폰 클래스
 public class SpawnData
 {
     public float spawnTime;

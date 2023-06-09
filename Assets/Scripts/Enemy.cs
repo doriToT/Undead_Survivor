@@ -63,4 +63,30 @@ public class Enemy : MonoBehaviour
         maxHealth = data.health;
         health = data.health;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Bullet"))
+            return;
+
+        health -= collision.GetComponent<Bullet>().damage;
+
+        if(health > 0)
+        {
+            // 살아있다. 히트 액션
+
+        }
+        else
+        {
+            // 죽었다.
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        // 몬스터들은 오브젝트 풀링으로 소환되기 때문에 비활성화 시켜야한다.
+        // Destroy 파괴시키면 안된다.
+        gameObject.SetActive(false);
+    }
 }

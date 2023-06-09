@@ -43,7 +43,7 @@ public class PoolManager : MonoBehaviour
         if(!select)
         {
             // >> 새롭게 생성하고 select 변수에 할당
-            select = Instantiate(prefabs[index], transform);
+            select = Instantiate(prefabs[index], transform); // transform은 자기자신
             pools[index].Add(select);
         }
 
