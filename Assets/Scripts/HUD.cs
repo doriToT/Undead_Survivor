@@ -28,13 +28,17 @@ public class HUD : MonoBehaviour
                 mySlider.value = curExp / maxExp;
                 break;
             case InfoType.Level:
-
+                //                   Format({인덱스 순번:소수점 자리}, 데이터);
+                myText.text = string.Format("Lv.{0:F0}", GameManager.instance.level);
                 break;
             case InfoType.Kill:
-
+                myText.text = string.Format("{0:F0}", GameManager.instance.kill);
                 break;
             case InfoType.Time:
-
+                float remainTime = GameManager.instance.maxGameTime - GameManager.instance.gameTime;
+                int min = Mathf.FloorToInt(remainTime / 60);
+                int sec = Mathf.FloorToInt(remainTime % 60);
+                myText.text = string.Format("{0:D2}:{1:D2}", min, sec);
                 break;
             case InfoType.Health:
 
