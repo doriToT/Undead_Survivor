@@ -13,19 +13,24 @@ public class Enemy : MonoBehaviour
     bool isLive;
 
     Rigidbody2D rigid;
+    Collider2D coll;
     Animator anim;
     SpriteRenderer spriter;
+    WaitForFixedUpdate wait;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collider2D>();
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        wait = new WaitForFixedUpdate();
     }
 
     void FixedUpdate()
     {
-        if (!isLive)
+        // 몬스터의 현재상태를 나타내는 함수도 조건에 추가해 넉백을 발생시켜준다.
+        if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
             return;
 
         // 플레이어 키입력 값을 더한 이동 = 몬스터의 방향값을 더한 이동
@@ -51,6 +56,10 @@ public class Enemy : MonoBehaviour
         // GameManger의 요소인 player를 가져오는데 target의 형태인 Rigidbody2D를 적용시켜야한다.
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        spriter.sortingOrder = 2;
+        anim.SetBool("Dead", false);
         health = maxHealth;
     }
 
@@ -70,23 +79,34 @@ public class Enemy : MonoBehaviour
             return;
 
         health -= collision.GetComponent<Bullet>().damage;
+        StartCoroutine("KnockBack");
 
         if(health > 0)
         {
-            // 살아있다. 히트 액션
-
+            anim.SetTrigger("Hit");
         }
         else
         {
-            // 죽었다.
-            Dead();
+            isLive = false;
+            coll.enabled = false;
+            rigid.simulated = false;
+            spriter.sortingOrder = 1;
+            anim.SetBool("Dead", true);
         }
+    }
+
+    IEnumerator KnockBack()
+    {
+        yield return wait;  // 다음 하나의 물리 프레임 딜레이
+        Vector3 playerPos = GameManager.instance.player.transform.position;
+        Vector3 dirVec = transform.position - playerPos;
+        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
     }
 
     void Dead()
     {
         // 몬스터들은 오브젝트 풀링으로 소환되기 때문에 비활성화 시켜야한다.
-        // Destroy 파괴시키면 안된다.
+        // Destroy로 파괴시키면 안된다.
         gameObject.SetActive(false);
     }
 }

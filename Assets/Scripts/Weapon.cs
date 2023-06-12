@@ -103,6 +103,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    // 총알 발사하는 로직
     void Fire()
     {
         if (!player.scanner.nearstTarget)
