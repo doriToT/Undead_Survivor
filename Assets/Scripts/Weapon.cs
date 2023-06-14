@@ -90,7 +90,12 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-        //                                     꼭 Receiver가 필요하진 않다.
+        // Hand Set
+        Hand hand = player.hands[(int)data.itemType];
+        hand.spriter.sprite = data.hand;
+        hand.gameObject.SetActive(true);
+
+        //                                     꼭 Receiver가 필요하진 않다. 추가
         player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
     }
 

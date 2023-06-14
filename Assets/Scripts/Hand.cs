@@ -16,7 +16,7 @@ public class Hand : MonoBehaviour
 
     void Awake()
     {
-        //                                              2번째가 부모의 SpriteRenderer
+        //                                     2번째가 부모의 SpriteRenderer
         player = GetComponentsInParent<SpriteRenderer>()[1];    
     }
 
