@@ -46,8 +46,6 @@ public class Item : MonoBehaviour
                 textDesc.text = string.Format(data.itemDesc);
                 break;
         }
-
-        
     }
 
 

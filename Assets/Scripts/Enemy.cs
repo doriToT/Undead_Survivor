@@ -29,6 +29,9 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         // 몬스터의 현재상태를 나타내는 함수도 조건에 추가해 넉백을 발생시켜준다.
         if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
             return;
@@ -43,6 +46,9 @@ public class Enemy : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         if (!isLive)
             return;
         // 몬스터 방향전환
