@@ -47,8 +47,32 @@ public class AchiveManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
-        
+        foreach (Achive achive in achives)
+        {
+            CheckAchive(achive);
+        }
+    }
+
+    void CheckAchive(Achive achive)
+    {
+        bool isAchive = false;
+
+        switch (achive)
+        {
+            case Achive.UnlockPotato:
+                isAchive = GameManager.instance.kill >= 10;
+                break;
+
+            case Achive.UnlockBean:
+                isAchive = GameManager.instance.gameTime == GameManager.instance.maxGameTime;
+                break;
+        }
+
+        if (isAchive && PlayerPrefs.GetInt(achive.ToString()) == 0)
+        {
+            PlayerPrefs.SetInt(achive.ToString(), 1);
+        }
     }
 }
