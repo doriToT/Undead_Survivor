@@ -27,7 +27,7 @@ public class AchiveManager : MonoBehaviour
 
         foreach(Achive achive in achives)
         {
-            PlayerPrefs.SetInt(achive.ToString(), 1);
+            PlayerPrefs.SetInt(achive.ToString(), 0);
         }
     }
 
