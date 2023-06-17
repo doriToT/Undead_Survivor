@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);   // 게임시작하면 player 활성
         uiLevelUp.Select(playerId % 2);  // 무기 지급
         Resume();
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
 
     public void GameOver()
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Lose();
         Stop();
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Lose);
     }
 
     public void GameVictory()
@@ -72,6 +76,8 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Win();
         Stop();
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
     }
 
     public void GameRetry()
