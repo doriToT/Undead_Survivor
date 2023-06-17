@@ -19,8 +19,8 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.per = per;
 
-        // per가 -1(무한)보다 큰 것에 대해서는 원거리 총알이므로 속도적용
-        if (per > -1)
+        
+        if (per >= 0)
         {
             rigid.velocity = dir * 15f;
         }
@@ -28,15 +28,24 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Enemy") || per == -1)
+        //                                   per == -100 이면 근접무기
+        if (!collision.CompareTag("Enemy") || per == -100)
             return;
 
         per--;
 
-        if (per == -1)
+        if (per < 0)
         {
             rigid.velocity = Vector2.zero; // 비활성화 이전에 물리속도 초기화
             gameObject.SetActive(false);
         }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Area") || per == -100)
+            return;
+
+        gameObject.SetActive(false);
     }
 }
