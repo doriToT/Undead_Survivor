@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public Player player;
     public LevelUp uiLevelUp;
     public Result uiResult;
+    public Transform uiJoy;
     public GameObject enemyCleaner;
 
     void Awake()
@@ -90,7 +91,8 @@ public class GameManager : MonoBehaviour
 
     public void GameQuit()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        Application.Quit();
     }
 
     void Update()
@@ -128,6 +130,7 @@ public class GameManager : MonoBehaviour
     {
         isLive = false;
         Time.timeScale = 0;
+        uiJoy.localScale = Vector3.zero;
     }
 
     // 시간정지 후 재개하는 함수
@@ -135,5 +138,6 @@ public class GameManager : MonoBehaviour
     {
         isLive = true;
         Time.timeScale = 1;
+        uiJoy.localScale = Vector3.one;
     }
 }
